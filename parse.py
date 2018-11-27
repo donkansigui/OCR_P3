@@ -55,7 +55,3 @@ map.append(parse(s12))
 map.append(parse(s13))
 map.append(parse(s14))
 map.append(parse(s15))
-
-#
-#for lettre in enumerate(map):
-#    print lettre

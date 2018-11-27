@@ -4,15 +4,10 @@ from pygame.locals import *
 from parse import *
 from random import *
 
-
-
-
-
-
 # set up pygame
 pygame.init()
 
-# fonction qui retourne un emplacement aleatoire sur la liste "map"
+# function that returns a random location on the "map" list
 print("---------------")
 def alea(map):
     x = randint(1, 13)
@@ -72,9 +67,6 @@ position_ether = ether.get_rect(center=(cx, dx))
 ex = plastic_tube_xy[0]*40+20
 fx = plastic_tube_xy[0]*40+20
 position_plastic_tube = ether.get_rect(center=(ex, fx))
-# show image
-
-
 
 # load wall image
 WALL = pygame.image.load('tile.png').convert()
@@ -92,34 +84,11 @@ for line in map:
         j=j+1
     i = i+1
 
-# a definir
+# variables
 mcx = 13
 mcy = 13
 
-
-
-
-# le compteur prend la position de mac et ajoute a la liste quand mac passe sur un objet
-
-
-
-# ajout de global pour les variables
-#global position_perso
-#mac = position_perso
-#global position_needle
-#needle = position_needle
-#global position_ether
-#ether = position_ether
-#global position_plastic_tube
-#tube = position_plastic_tube
-#if mac == needle:
-#    counter.append("needle")
-#elif mac == ether:
-#    counter.append("ether")
-#elif mac == tube:
-#    counter.append("tube")
-
-#compteur
+#counter
 counter = ""
 
 if position_perso.colliderect(position_needle):
@@ -130,10 +99,9 @@ elif position_perso.colliderect(position_plastic_tube):
     counter += "tube"
 
 counter_display = basicFont.render(counter, 1, (255,255,0))
+
 # needle, ether, tube
 inventory = [False, False, False]
-
-
 
 # run the game loop
 continuer = 1
@@ -170,19 +138,6 @@ while continuer:
         elif position_perso.colliderect(position_guard) and (inventory[0] == False or inventory[1] == False or inventory[2] == False):
             print("Game over")
 
-
-        #if event.type == KEYDOWN and position_perso == position_needle:
-        #    print("yup")
-        #if event.type == KEYDOWN and position_perso == position_ether:
-        #    print("ether")
-        #if event.type == KEYDOWN and position_perso == position_plastic_tube:
-        #    print("plastic")
-        #if event.type == KEYDOWN and position_perso == position_guard:
-        #    print("congrat")
-
-
-
-
     windowSurface.blit(FLOOR, (0,0))
     windowSurface.blit(MacGyver, position_perso)
     windowSurface.blit(Guardian, position_guard)
@@ -194,7 +149,6 @@ while continuer:
         windowSurface.blit(plastic_tube, position_plastic_tube)
     for data in WALL_LST:
         windowSurface.blit(WALL, data)
-    #windowSurface.blit(counter_display, (100,100))
 
 
     pygame.display.flip()
