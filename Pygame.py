@@ -1,5 +1,6 @@
 from pygame.draw import *
 import pygame, sys
+#import numpy as np
 from pygame.locals import *
 from parse import *
 from random import *
@@ -7,37 +8,45 @@ from random import *
 # set up pygame
 pygame.init()
 
+pygame.mixer.music.load('macgyver-theme-song.ogg')
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.6)
+pygame.mixer.music.unpause()
 # function that returns a random location on the "map" list
-print("---------------")
+#def random_str(map, N=15):
+#    val = "x"
+#    map = lst
+#    for i in range(int(N)):
+#        val = [elem for elem in lst if elem != val][np.random.randint(0,len(lst)-1)]
+#        return random_str(map)
+
+#plan = choice( map[:plan] + map[plan+1:] )
+#from random import choice
+#map, plan = range()
+
+#def rdm(map):
+#    if map != "x":
+
 def alea(map):
-    x = randint(1, 13)
-    y = randint (1, 13)
-    print(x)
-    print(y)
-    print (map [x][y])
-    if map [y][x] == "x":
+    # x = egal a un nombre aleatoire entre 1 et 15 dans map
+    x = randint(0, 14)
+    y = randint (0, 14)
+    if map [y][x] != "x":
         return alea(map)
-    ret = (y,x)
+    ret = (x, y)
     return ret
+
+
+
 # variables
 needle_xy = alea(map)
 ether_xy = alea(map)
 plastic_tube_xy = alea(map)
 
-
-# set up the colors
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-PURPLE = (174, 40, 171)
-
 #usefull game dimension
 TILESIZE = 40
 MAPWIDTH = 15
 MAPHEIGHT = 15
-
 
 # set up the window
 windowSurface = pygame.display.set_mode((MAPWIDTH*TILESIZE, MAPHEIGHT*TILESIZE), 0, 32)
@@ -107,10 +116,13 @@ inventory = [False, False, False]
 continuer = 1
 
 while continuer:
+
     for event in pygame.event.get():
         if event.type == QUIT:
             continuer = 0
         if event.type == KEYDOWN:
+            #pygame.mixer.sound.load('Jumping-.ogg')
+            #pygame.mixer.sound.play()
             if event.key == K_DOWN and map[mcx+1][mcy]!= "x":
                 position_perso = position_perso.move(0, 40)
                 mcx = mcx+1
@@ -134,7 +146,7 @@ while continuer:
             inventory[2] = True
 
         if position_perso.colliderect(position_guard) and inventory[0] == True and inventory[1] == True and inventory[2] == True:
-            print("Congratulation")
+            print("Congratulations")
         elif position_perso.colliderect(position_guard) and (inventory[0] == False or inventory[1] == False or inventory[2] == False):
             print("Game over")
 
@@ -149,6 +161,5 @@ while continuer:
         windowSurface.blit(plastic_tube, position_plastic_tube)
     for data in WALL_LST:
         windowSurface.blit(WALL, data)
-
 
     pygame.display.flip()
