@@ -1,18 +1,18 @@
-s1 = "xxxxxxxxxxxxxxx"
-s2 = "x    x        x"
-s3 = "xxxx xx xxxx  x"
-s4 = "x  x    xx   xx"
-s5 = "xx  xxxx  xx  x"
-s6 = "xxx    x x  x x"
-s7 = "x   x         x"
-s8 = "x xxxxxxx  xxxx"
-s9 = "x    x        x"
-s10 = "xxx xx xx xx  x"
-s11 = "xx  x  x   x xx"
-s12 = "x        x    x"
-s13 = "x xxx x xx xxxx"
-s14 = "x     x  x    x"
-s15 = "xxxxxxxxxxxxxxx"
+    s1 = "xxxxxxxxxxxxxxx"
+    s2 = "xg   x        x"
+    s3 = "xxxx xx xxxx  x"
+    s4 = "x  x    xx   xx"
+    s5 = "xx  xxxx  xx  x"
+    s6 = "xxx    x x  x x"
+    s7 = "x   x         x"
+    s8 = "x xxxxxxx  xxxx"
+    s9 = "x    x        x"
+    s10 = "xxx xx xx xx  x"
+    s11 = "xx  x  x   x xx"
+    s12 = "x        x    x"
+    s13 = "x xxx x xx xxxx"
+    s14 = "x     x  x   mx"
+    s15 = "xxxxxxxxxxxxxxx"
 
 def parse(s):
 
@@ -30,7 +30,7 @@ def parse(s):
 
     for character in s:
 
-        if character == "x" or character ==" ":
+        if character == "x" or character ==" " or character == "g" or character == "m":
             ret.append(character)
         else:
             print("character error")
