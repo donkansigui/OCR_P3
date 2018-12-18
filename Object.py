@@ -1,7 +1,6 @@
 
-
-class McGyver:
+class Object:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.lstObj = [False, False, False]
+        self.to_display = True

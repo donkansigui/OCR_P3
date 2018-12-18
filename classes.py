@@ -1,57 +1,90 @@
 import pygame, sys
 from pygame.locals import *
 from parse import *
-from sprite import *
+from McGyver import *
+from Murdock import *
+from Object import *
+import random
+
+
+
+
+
 
 class Maze:
 
-    self.map = map
-    self.McGyver = sprite.MacGyver.get_rect(center=(540, 540))
-    self.Murdock = sprite.Guardian.get_rect(center=(60, 60))
-    self.lstObj =
-
-    def user_input(self, pygame):
-        continue_game = 1
-        continue_home = 1
-
-        while continue_home:
-
-            for event in pygame.event.get():
-                #press escape to leave the game
-                if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
-                    continue_home = 0
-                    continue_game = 0
-                    continuer = 0
-                #press F1 to start the game
-                elif event.type == KEYDOWN:
-                    if event.key == K_F1:
-                        continue_home = 0
-                        continue_game = 1
+    def __init__(self):
+        self.map = call_parse()
+        self.McGyver = McGyver(13, 13)
+        self.Murdock = Murdock(1, 1)
+        self.lstObj = []
+        self.append_Obj()
+        
+        print(self.lstObj)
+    def append_Obj(self):
+        obj = self.random_position()
+        needle = Object(obj[0][0], obj[0][1])
+        ether = Object(obj[1][0], obj[1][1])
+        plastic_tube = Object(obj[2][0], obj[2][1])
+        self.lstObj.append(needle)
+        self.lstObj.append(ether)
+        self.lstObj.append(plastic_tube)
 
 
-        if event.type == KEYDOWN:
+    def random_position(self):
+        i = 0
+        self.wall = []
+        self.wall_lst = []
+        self.empty_lst = []
+        for line in self.map:
+            j = 0
+            for square in line:
+                print(square)
+                position = (j*40, i*40)
+                positionTab = [j , i ]
+                if square == "x":
+                    self.wall_lst.append(position)
+                    print("dedans")
+                elif square == " ":
+                    self.empty_lst.append(positionTab)
+                    print("dehors")
+                j=j+1
+            i = i+1
+        for data in self.empty_lst:
+            if data[0] == 3 and data[1] ==3:
+                print ("error")
+        self.empty_lst.remove([1, 13])
 
-            if event.key == K_DOWN and map[mcx+1][mcy]!= "x":
-                position_perso = position_perso.move(0, 40)
-                mcx = mcx+1
-            elif event.key == K_UP and map[mcx-1][mcy]!= "x":
-                position_perso = position_perso.move(0, -40)
-                mcx = mcx-1
-            elif event.key == K_LEFT and map[mcx][mcy-1]!= "x":
-                position_perso = position_perso.move(-40, 0)
-                mcy = mcy-1
-            elif event.key == K_RIGHT and map[mcx][mcy+1]!= "x":
-                position_perso = position_perso.move(40, 0)
-                mcy = mcy+1
 
-    def game_loop():
+        return (random.sample(self.empty_lst, 3))
 
-    def show_items():
 
-    def victory_conditions():
 
-class McGyver:
 
-class objet:
 
-class Murdock:
+
+
+    def check_destination(self, map, event):
+        if event.key == K_DOWN and map[self.x+1][self.y]:
+            self.x = self.x +1
+        if event.key == K_UP and map[self.x-1][self.y]:
+            self.x = self.x -1
+        if event.key == K_LEFT and map[self.x][self.y-1]:
+            self.y = self.y -1
+        if event.key == K_RIGHT and map[self.x][self.y+1]:
+            self.y = self.y +1
+
+    def check_destination(self, map):
+        if event.key == K_DOWN and map[self.McGyver.x+1][self.McGyver.y]:
+            self.McGyver.x = self.McGyver.x + 1
+        if event.key == K_UP and map[self.McGyver.x-1][self.McGyver.y]:
+            self.McGyver.x = self.McGyver.x -1
+        if event.key == K_LEFT and map[self.McGyver.x][self.McGyver.y-1]:
+            self.McGyver.y = self.McGyver.y -1
+        if event.key == K_RIGHT and map[self.McGyver.x][self.McGyver.y+1]:
+            self.McGyver.y = self.McGyver.y +1
+
+
+
+            position_perso = position_perso.move(0, 40)
+            mcx = mcx+1
