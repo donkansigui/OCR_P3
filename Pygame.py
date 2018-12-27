@@ -68,38 +68,6 @@ while continuer:
     #run the game loop
     while continuer:
 
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                continuer = 0
-            if event.type == KEYDOWN:
-
-                if event.key == K_DOWN and map[mcx+1][mcy]!= "x":
-                    position_perso = position_perso.move(0, 40)
-                    mcx = mcx+1
-                elif event.key == K_UP and map[mcx-1][mcy]!= "x":
-                    position_perso = position_perso.move(0, -40)
-                    mcx = mcx-1
-                elif event.key == K_LEFT and map[mcx][mcy-1]!= "x":
-                    position_perso = position_perso.move(-40, 0)
-                    mcy = mcy-1
-                elif event.key == K_RIGHT and map[mcx][mcy+1]!= "x":
-                    position_perso = position_perso.move(40, 0)
-                    mcy = mcy+1
-
-            if position_perso.colliderect(position_needle):
-                inventory[0] = True
-
-            if position_perso.colliderect(position_ether):
-                inventory[1] = True
-
-            if position_perso.colliderect(position_plastic_tube):
-                inventory[2] = True
-
-            if position_perso.colliderect(position_guard) and inventory[0] == True and inventory[1] == True and inventory[2] == True:
-                print("Congratulations")
-            elif position_perso.colliderect(position_guard) and (inventory[0] == False or inventory[1] == False or inventory[2] == False):
-                print("Game over")
-
 
         windowSurface.blit(sprite.Floor, (0,0))
         windowSurface.blit(sprite.MacGyver, position_perso)

@@ -9,17 +9,16 @@ import random
 
 
 
-
-
 class Maze:
 
     def __init__(self):
+
         self.map = call_parse()
         self.McGyver = McGyver(13, 13)
         self.Murdock = Murdock(1, 1)
         self.lstObj = []
         self.append_Obj()
-        
+
         print(self.lstObj)
     def append_Obj(self):
         obj = self.random_position()

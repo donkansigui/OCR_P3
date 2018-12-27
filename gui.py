@@ -4,16 +4,18 @@ from pygame.locals import *
 from pygame.draw import *
 from classes import Maze as mz
 
+
 #usefull game dimension
 TILESIZE = 40
 MAPWIDTH = 15
 MAPHEIGHT = 15
 
 # set up pygame
-
-
 class gui:
     def __init__(self):
+        self.mcx = 13
+        self.mcy = 13
+        self.position_perso = [520,520]
         self.maze = mz()
         self.pygame = pygame
         self.pygame.init()
@@ -25,6 +27,7 @@ class gui:
         self.rectangle = self.pygame.draw.rect(self.windowSurface, (255,255,255), (0, 80, 0, 40))
         self.init_music()
         self.init_sprite()
+        self.wall = pygame.image.load("tile.png").convert()
 
 
     def init_music(self):
@@ -68,14 +71,59 @@ class gui:
     def run(self):
         while(1):
             self.display_map()
+            self.event()
+
+    def event(self):
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                continuer = 0
+            if event.type == KEYDOWN:
+
+                if event.key == K_DOWN and self.maze.map[self.mcx+1][self.mcy]!= "x":
+                    self.position_perso = self.position_perso.move(0, 40)
+                    self.mcx = self.mcx+1
+                elif event.key == K_UP and self.maze.map[self.mcx-1][self.mcy]!= "x":
+                    self.position_perso = self.position_perso.move(0, -40)
+                    self.mcx = self.mcx-1
+                elif event.key == K_LEFT and self.maze.map[self.mcx][self.mcy-1]!= "x":
+                    self.position_perso = self.position_perso.move(-40, 0)
+                    self.mcy = self.mcy-1
+                elif event.key == K_RIGHT and self.maze.map[self.mcx][self.mcy+1]!= "x":
+                    self.position_perso = self.position_perso.move(40, 0)
+                    self.mcy = self.mcy+1
+
+            if self.position_perso.colliderect(self.position_needle):
+                self.maze.McGyver.lstObj [0] = True
+
+            if self.position_perso.colliderect(self.position_ether):
+                self.maze.McGyver.lstObj [1] = True
+
+            if self.position_perso.colliderect(self.position_plastic_tube):
+                self.maze.McGyver.lstObj [2] = True
+
+            if self.position_perso.colliderect(self.position_guard) and self.maze.McGyver.lstObj[0] == True and self.maze.McGyver.lstObj[1] == True and self.maze.McGyver.lstObj[2] == True:
+                self.windowSurface.blit(self.sprite.congratulations, (0,0))
+            elif self.position_perso.colliderect(self.position_guard) and (self.maze.McGyver.lstObj[0] == False or self.maze.McGyver.lstObj[1] == False or self.maze.McGyver.lstObj[2] == False):
+                self.windowSurface.blit(self.sprite.game_over, (0,0))
+
     def display_map(self):
+
+        for data in self.maze.empty_lst:
+            self.windowSurface.blit(self.sprite.Floor, data)
+        for data in self.maze.wall_lst:
+
+            self.windowSurface.blit(self.wall, data)
+        if self.maze.McGyver.lstObj[0]== False:
+            self.windowSurface.blit(self.sprite.needle, self.position_needle)
+        if self.maze.McGyver.lstObj[1]== False:
+            self.windowSurface.blit(self.sprite.ether, self.position_ether)
+        if self.maze.McGyver.lstObj[2]== False:
+            self.windowSurface.blit(self.sprite.plastic_tube, self.position_plastic_tube)
+
+
+
         self.windowSurface.blit(self.sprite.MacGyver, self.position_perso)
         self.windowSurface.blit(self.sprite.Guardian, self.position_guard)
-        print(self.maze.wall_lst)
-        for data in self.maze.wall_lst:
-            print (data)
-            self.windowSurface.blit(self.maze.wall, data)
-
         # if inventory[0] ==  False:
         #     self.windowSurface.blit(sprite.needle, position_needle)
         # if inventory[1] ==  False:
