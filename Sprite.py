@@ -1,6 +1,7 @@
 from pygame import *
 
-class sprite:
+""" assignment of images """
+class Sprite:
     def __init__(self, pygame):
 
         self.Floor = pygame.image.load('floor.png').convert()
@@ -17,3 +18,4 @@ class sprite:
         self.home = pygame.image.load('Mc_Gyver.png').convert()
         self.congratulations = pygame.image.load('The_End.png').convert()
         self.game_over = pygame.image.load('game_over.png').convert()
+        

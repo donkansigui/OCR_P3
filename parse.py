@@ -15,8 +15,7 @@ s14 = "x     x  x   mx"
 s15 = "xxxxxxxxxxxxxxx"
 
 def parse(s):
-
-
+    """ creation of the algorithm to format the structure """
     ret = []
 
     s = s[0:15]
@@ -26,7 +25,6 @@ def parse(s):
     else:
         print("len error")
         sys.exit(-1)
-
 
     for character in s:
 
@@ -39,6 +37,7 @@ def parse(s):
     return ret
 # fonction parsing
 def call_parse():
+    """ application of the algorithm """
 
     map = []
     map.append(parse(s1))

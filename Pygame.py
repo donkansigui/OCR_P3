@@ -1,5 +1,6 @@
 from pygame.draw import *
-import pygame, sys
+import pygame
+import sys
 from pygame.locals import *
 from parse import *
 import random

@@ -1,4 +1,7 @@
-import pygame, sys
+# coding: utf-8
+
+import pygame
+import sys
 from pygame.locals import *
 from parse import *
 from McGyver import *
@@ -6,20 +9,17 @@ from Murdock import *
 from Object import *
 import random
 
-
-
-
+""" creation of the maze """
 class Maze:
-
+    """  """
     def __init__(self):
-
         self.map = call_parse()
         self.McGyver = McGyver(13, 13)
         self.Murdock = Murdock(1, 1)
         self.lstObj = []
         self.append_Obj()
-
         print(self.lstObj)
+
     def append_Obj(self):
         obj = self.random_position()
         needle = Object(obj[0][0], obj[0][1])
@@ -28,7 +28,6 @@ class Maze:
         self.lstObj.append(needle)
         self.lstObj.append(ether)
         self.lstObj.append(plastic_tube)
-
 
     def random_position(self):
         i = 0
@@ -54,14 +53,7 @@ class Maze:
                 print ("error")
         self.empty_lst.remove([1, 13])
 
-
         return (random.sample(self.empty_lst, 3))
-
-
-
-
-
-
 
     def check_destination(self, map, event):
         if event.key == K_DOWN and map[self.x+1][self.y]:
@@ -82,8 +74,6 @@ class Maze:
             self.McGyver.y = self.McGyver.y -1
         if event.key == K_RIGHT and map[self.McGyver.x][self.McGyver.y+1]:
             self.McGyver.y = self.McGyver.y +1
-
-
 
             position_perso = position_perso.move(0, 40)
             mcx = mcx+1
