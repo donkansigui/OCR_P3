@@ -14,12 +14,13 @@ s13 = "x xxx x xx xxxx"
 s14 = "x     x  x   mx"
 s15 = "xxxxxxxxxxxxxxx"
 
+
 def parse(s):
     """ creation of the algorithm to format the structure """
     ret = []
 
     s = s[0:15]
-    if len(s) == 15 :
+    if len(s) == 15:
         pass
 
     else:
@@ -28,16 +29,17 @@ def parse(s):
 
     for character in s:
 
-        if character == "x" or character ==" " or character == "g" or character == "m":
+        if character == "x" or character == " " or character == "g" or character == "m":
             ret.append(character)
         else:
             print("character error")
             sys.exit(-1)
 
     return ret
-# fonction parsing
+
+
 def call_parse():
-    """ application of the algorithm """
+    """ application of the algorithm to parse"""
 
     map = []
     map.append(parse(s1))

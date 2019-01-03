@@ -1,5 +1,6 @@
 # coding: utf-8
 
+
 class Object:
     """ assigning values ​​for positioning objects """
     def __init__(self, x, y):
