@@ -1,38 +1,22 @@
-s1 = "xxxxxxxxxxxxxxx"
-s2 = "xg   x        x"
-s3 = "xxxx xx xxxx  x"
-s4 = "x  x    xx   xx"
-s5 = "xx  xxxx  xx  x"
-s6 = "xxx    x x  x x"
-s7 = "x   x         x"
-s8 = "x xxxxxxx  xxxx"
-s9 = "x    x        x"
-s10 = "xxx xx xx xx  x"
-s11 = "xx  x  x   x xx"
-s12 = "x        x    x"
-s13 = "x xxx x xx xxxx"
-s14 = "x     x  x   mx"
-s15 = "xxxxxxxxxxxxxxx"
+# coding: utf-8
+""" function used to parse the maze """
+import sys
 
 
-def parse(s):
+def parse(string_analyse):
     """ creation of the algorithm to format the structure """
     ret = []
-
-    s = s[0:15]
-    if len(s) == 15:
+    string_analyse = string_analyse[0:15]
+    if len(string_analyse) == 15:
         pass
-
     else:
-        print("len error")
         sys.exit(-1)
 
-    for character in s:
-
-        if character == "x" or character == " " or character == "g" or character == "m":
+    for character in string_analyse:
+        if character == "x" or character == " " or character == "g" or\
+                                                              character == "m":
             ret.append(character)
         else:
-            print("character error")
             sys.exit(-1)
 
     return ret
@@ -40,21 +24,13 @@ def parse(s):
 
 def call_parse():
     """ application of the algorithm to parse"""
+    map_maze = []
+    with open('maze.txt', "r") as fichier:
+        for line in fichier:
+            if not line:
+                continue
+            map_maze.append(parse(line))
 
-    map = []
-    map.append(parse(s1))
-    map.append(parse(s2))
-    map.append(parse(s3))
-    map.append(parse(s4))
-    map.append(parse(s5))
-    map.append(parse(s6))
-    map.append(parse(s7))
-    map.append(parse(s8))
-    map.append(parse(s9))
-    map.append(parse(s10))
-    map.append(parse(s11))
-    map.append(parse(s12))
-    map.append(parse(s13))
-    map.append(parse(s14))
-    map.append(parse(s15))
-    return map
+    return map_maze
+
+call_parse()

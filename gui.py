@@ -1,12 +1,18 @@
 #! /usr/bin/env python3
 # coding: utf-8
+# pylint: disable=no-member
+""" setting up the game """
 
-import pygame
 import sys
+import pygame
 from pygame.locals import *
+from pygame.constants import (
+    KEYDOWN, K_F1, K_ESCAPE, K_RIGHT, K_LEFT, K_UP, K_DOWN
+)
 from pygame.draw import *
-from classes import Maze as mz
-from Sprite import *
+from maze import Maze as mz
+from sprite import Sprite
+
 
 
 # usefull game dimension
@@ -30,50 +36,49 @@ class Gui:
         self.myfont = self.pygame.font.SysFont('monospace', 16)
         self.Sprite = Sprite(self.pygame)
 
-        self.rectangle = self.pygame.draw.rect(self.windowSurface,
-                                                (255, 255, 255), (0, 80, 0, 40))
+        self.rectangle = self.pygame.draw.rect(self.window_surface,
+                                               (255, 255, 255), (0, 80, 0, 40))
         self.init_music()
-        self.init_Sprite()
-        self.wall = pygame.image.load('tile.png').convert()
+        self.init_sprite()
+        self.wall = pygame.image.load('./pictures/tile.png').convert()
 
     def init_music(self):
         """ setting up the music """
-        self.pygame.mixer.music.load('macgyver-theme-song.ogg')
+        self.pygame.mixer.music.load('./music/macgyver-theme-song.ogg')
         self.pygame.mixer.music.play(-1)
-        self.pygame.mixer.music.set_volume(0.6)
+        self.pygame.mixer.music.set_volume(0.0)
         self.pygame.mixer.music.unpause()
 
     def init_ui(self):
         """ setting up the main window """
-        self.windowSurface = self.pygame.display.set_mode((MAPWIDTH*TILESIZE,
-                                                MAPHEIGHT*TILESIZE + 40), 0, 32)
+        self.window_surface = self.pygame.display.set_mode((MAPWIDTH*TILESIZE,
+                                                            MAPHEIGHT*TILESIZE + 40), 0, 32)
         self.pygame.display.set_caption('Mac Gyver')
 
-    def init_Sprite(self):
+    def init_sprite(self):
         """ setting up sprites positioning """
-        self.position_perso = self.Sprite.MacGyver.get_rect(center=(540, 540))
-        self.position_guard = self.Sprite.Guardian.get_rect(center=(60, 60))
-        self.position_rect = self.Sprite.needle.get_rect(center=(320, 620))
-        self.position_rect2 = self.Sprite.ether.get_rect(center=(280, 620))
+        self.position_perso = self.Sprite.index[1].get_rect(center=(540, 540))
+        self.position_guard = self.Sprite.index[2].get_rect(center=(60, 60))
+        self.position_rect = self.Sprite.index[4].get_rect(center=(320, 620))
+        self.position_rect2 = self.Sprite.index[3].get_rect(center=(280, 620))
         self.position_rect3 =\
-                            self.Sprite.plastic_tube.get_rect(center=(240, 620))
-        print(self.maze.lstObj[0].x)
-        ax = (self.maze.lstObj[0].x)*40+20
-        bx = self.maze.lstObj[0].y*40+20
-        self.position_needle = self.Sprite.needle.get_rect(center=(ax, bx))
-        cx = self.maze.lstObj[1].x*40+20
-        dx = self.maze.lstObj[1].y*40+20
-        self.position_ether = self.Sprite.ether.get_rect(center=(cx, dx))
-        ex = self.maze.lstObj[2].x*40+20
-        fx = self.maze.lstObj[2].y*40+20
+                            self.Sprite.index[5].get_rect(center=(240, 620))
+        a_x = (self.maze.lst_obj[0].x_position)*40+20
+        b_x = self.maze.lst_obj[0].y_position*40+20
+        self.position_needle = self.Sprite.index[4].get_rect(center=(a_x, b_x))
+        c_x = self.maze.lst_obj[1].x_position*40+20
+        d_x = self.maze.lst_obj[1].y_position*40+20
+        self.position_ether = self.Sprite.index[3].get_rect(center=(c_x, d_x))
+        e_x = self.maze.lst_obj[2].x_position*40+20
+        f_x = self.maze.lst_obj[2].y_position*40+20
         self.position_plastic_tube =\
-                              self.Sprite.plastic_tube.get_rect(center=(ex, fx))
+                              self.Sprite.index[5].get_rect(center=(e_x, f_x))
 
     def run(self):
         """ start loop """
         loop = True
         while loop is True:
-            self.windowSurface.blit(self.Sprite.home, (0, 0))
+            self.window_surface.blit(self.Sprite.index[6], (0, 0))
             self.pygame.display.flip()
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
@@ -111,29 +116,29 @@ class Gui:
                     self.mcy = self.mcy+1
 
             if self.position_perso.colliderect(self.position_needle):
-                self.maze.McGyver.lstObj[0] = True
+                self.maze.McGyver.lst_obj[0] = True
 
             if self.position_perso.colliderect(self.position_ether):
-                self.maze.McGyver.lstObj[1] = True
+                self.maze.McGyver.lst_obj[1] = True
 
             if self.position_perso.colliderect(self.position_plastic_tube):
-                self.maze.McGyver.lstObj[2] = True
+                self.maze.McGyver.lst_obj[2] = True
 
             if self.position_perso.colliderect(self.position_guard) and\
-                                        (self.maze.McGyver.lstObj[0] == True and
-                                         self.maze.McGyver.lstObj[1] == True and
-                                         self.maze.McGyver.lstObj[2] == True):
-                self.print_end_screen(self.Sprite.congratulations)
+                                       (self.maze.McGyver.lst_obj[0] == True and
+                                        self.maze.McGyver.lst_obj[1] == True and
+                                        self.maze.McGyver.lst_obj[2] == True):
+                self.print_end_screen(self.Sprite.index[7])
             elif self.position_perso.colliderect(self.position_guard) and\
-                                        (self.maze.McGyver.lstObj[0] == False or
-                                         self.maze.McGyver.lstObj[1] == False or
-                                         self.maze.McGyver.lstObj[2] == False):
-                self.print_end_screen(self.Sprite.game_over)
+                                       (self.maze.McGyver.lst_obj[0] == False or
+                                        self.maze.McGyver.lst_obj[1] == False or
+                                        self.maze.McGyver.lst_obj[2] == False):
+                self.print_end_screen(self.Sprite.index[8])
 
     def print_end_screen(self, Sprite):
         """ display of the end screen """
         while True:
-            self.windowSurface.blit(Sprite, (0, 0))
+            self.window_surface.blit(Sprite, (0, 0))
             self.pygame.display.flip()
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
@@ -144,29 +149,29 @@ class Gui:
         """ display of map elements and inventory management """
 
         for data in self.maze.empty_lst:
-            self.windowSurface.blit(self.Sprite.Floor, data)
+            self.window_surface.blit(self.Sprite.index[0], data)
         for data in self.maze.wall_lst:
-            self.windowSurface.blit(self.wall, data)
-        if self.maze.McGyver.lstObj[0] == False:
-            self.windowSurface.blit(self.Sprite.needle, self.position_needle)
-        if self.maze.McGyver.lstObj[1] == False:
-            self.windowSurface.blit(self.Sprite.ether, self.position_ether)
-        if self.maze.McGyver.lstObj[2] == False:
-            self.windowSurface.blit(self.Sprite.plastic_tube,
-                                    self.position_plastic_tube)
-        if self.maze.McGyver.lstObj[0] == True:
-            self.windowSurface.blit(self.Sprite.needle, self.position_rect)
-        if self.maze.McGyver.lstObj[1] == True:
-            self.windowSurface.blit(self.Sprite.ether, self.position_rect2)
-        if self.maze.McGyver.lstObj[2] == True:
-            self.windowSurface.blit(self.Sprite.plastic_tube,
-                                    self.position_rect3)
+            self.window_surface.blit(self.wall, data)
+        if self.maze.McGyver.lst_obj[0] == False:
+            self.window_surface.blit(self.Sprite.index[4], self.position_needle)
+        if self.maze.McGyver.lst_obj[1] == False:
+            self.window_surface.blit(self.Sprite.index[3], self.position_ether)
+        if self.maze.McGyver.lst_obj[2] == False:
+            self.window_surface.blit(self.Sprite.index[5],
+                                     self.position_plastic_tube)
+        if self.maze.McGyver.lst_obj[0] == True:
+            self.window_surface.blit(self.Sprite.index[4], self.position_rect)
+        if self.maze.McGyver.lst_obj[1] == True:
+            self.window_surface.blit(self.Sprite.index[3], self.position_rect2)
+        if self.maze.McGyver.lst_obj[2] == True:
+            self.window_surface.blit(self.Sprite.index[5],
+                                     self.position_rect3)
 
-        self.windowSurface.blit(self.Sprite.MacGyver, self.position_perso)
-        self.windowSurface.blit(self.Sprite.Guardian, self.position_guard)
+        self.window_surface.blit(self.Sprite.index[1], self.position_perso)
+        self.window_surface.blit(self.Sprite.index[2], self.position_guard)
         self.pygame.display.flip()
 
 if __name__ == '__main__':
     Gui = Gui()
 
-    Gui.run()
+Gui.run()

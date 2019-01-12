@@ -1,13 +1,14 @@
 # coding: utf-8
-
-import pygame
-import sys
-from pygame.locals import *
-from parse import *
-from McGyver import *
-from Murdock import *
-from Object import *
+# pylint: disable=no-member
+""" creation of the maze """
 import random
+from pygame.constants import (
+    K_RIGHT, K_LEFT, K_UP, K_DOWN
+)
+from parse import *
+from mcgyver import *
+from murdock import *
+from object import *
 
 
 class Maze:
@@ -17,9 +18,9 @@ class Maze:
         self.map = call_parse()
         self.McGyver = McGyver(13, 13)
         self.Murdock = Murdock(1, 1)
-        self.lstObj = []
+        self.lst_obj = []
         self.append_Obj()
-        print(self.lstObj)
+        print self.lst_obj
 
     def append_Obj(self):
         """ positioning inventory objects """
@@ -27,9 +28,9 @@ class Maze:
         needle = Object(obj[0][0], obj[0][1])
         ether = Object(obj[1][0], obj[1][1])
         plastic_tube = Object(obj[2][0], obj[2][1])
-        self.lstObj.append(needle)
-        self.lstObj.append(ether)
-        self.lstObj.append(plastic_tube)
+        self.lst_obj.append(needle)
+        self.lst_obj.append(ether)
+        self.lst_obj.append(plastic_tube)
 
     def random_position(self):
         """ positioning of walls and empty spaces """
@@ -40,26 +41,24 @@ class Maze:
         for line in self.map:
             j = 0
             for square in line:
-                print(square)
                 position = (j*40, i*40)
-                positionTab = [j, i]
+                position_tab = [j, i]
                 if square == "x":
                     self.wall_lst.append(position)
                 elif square == " ":
-                    self.empty_lst.append(positionTab)
+                    self.empty_lst.append(position_tab)
                 j = j+1
             i = i+1
         for data in self.empty_lst:
             if data[0] == 3 and data[1] == 3:
-                print ("error")
+                print "error"
         self.empty_lst.remove([1, 13])
 
-        return (random.sample(self.empty_lst, 3))
+        return random.sample(self.empty_lst, 3)
 
     def check_destination(self, map, event):
         """ verification of the destination
             for the movements of the character
-
         """
         if event.key == K_DOWN and map[self.x+1][self.y]:
             self.x = self.x + 1
