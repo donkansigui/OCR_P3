@@ -14,7 +14,6 @@ from maze import Maze as mz
 from sprite import Sprite
 
 
-
 # usefull game dimension
 TILESIZE = 40
 MAPWIDTH = 15
@@ -51,8 +50,8 @@ class Gui:
 
     def init_ui(self):
         """ setting up the main window """
-        self.window_surface = self.pygame.display.set_mode((MAPWIDTH*TILESIZE,
-                                                            MAPHEIGHT*TILESIZE + 40), 0, 32)
+        self.window_surface = self.pygame.display.set_mode(
+            (MAPWIDTH*TILESIZE, MAPHEIGHT*TILESIZE + 40), 0, 32)
         self.pygame.display.set_caption('Mac Gyver')
 
     def init_sprite(self):
