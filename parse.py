@@ -32,5 +32,3 @@ def call_parse():
             map_maze.append(parse(line))
 
     return map_maze
-
-call_parse()

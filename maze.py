@@ -2,27 +2,28 @@
 # pylint: disable=no-member
 """ creation of the maze """
 import random
-from pygame.constants import (
-    K_RIGHT, K_LEFT, K_UP, K_DOWN
-)
-from parse import *
-from mcgyver import *
-from murdock import *
-from object import *
+import pygame
+from parse import call_parse
+from mcgyver import McGyver
+from murdock import Murdock
+from object import Object
 
 
-class Maze:
+class Maze(object):
     """ creation of the maze """
     def __init__(self):
         """ positioning elements of the maze """
+        self.wall = []
+        self.wall_lst = []
+        self.empty_lst = []
         self.map = call_parse()
-        self.McGyver = McGyver(13, 13)
-        self.Murdock = Murdock(1, 1)
+        self.mc_gyver = McGyver(13, 13)
+        self.murdock = Murdock(1, 1)
         self.lst_obj = []
-        self.append_Obj()
+        self.append_obj()
         print self.lst_obj
 
-    def append_Obj(self):
+    def append_obj(self):
         """ positioning inventory objects """
         obj = self.random_position()
         needle = Object(obj[0][0], obj[0][1])
@@ -55,32 +56,3 @@ class Maze:
         self.empty_lst.remove([1, 13])
 
         return random.sample(self.empty_lst, 3)
-
-    def check_destination(self, map, event):
-        """ verification of the destination
-            for the movements of the character
-        """
-        if event.key == K_DOWN and map[self.x+1][self.y]:
-            self.x = self.x + 1
-        if event.key == K_UP and map[self.x-1][self.y]:
-            self.x = self.x - 1
-        if event.key == K_LEFT and map[self.x][self.y-1]:
-            self.y = self.y - 1
-        if event.key == K_RIGHT and map[self.x][self.y+1]:
-            self.y = self.y + 1
-
-    def check_destination(self, map):
-        """ verification of the destination
-            for the movements of the character
-        """
-        if event.key == K_DOWN and map[self.McGyver.x+1][self.McGyver.y]:
-            self.McGyver.x = self.McGyver.x + 1
-        if event.key == K_UP and map[self.McGyver.x-1][self.McGyver.y]:
-            self.McGyver.x = self.McGyver.x - 1
-        if event.key == K_LEFT and map[self.McGyver.x][self.McGyver.y-1]:
-            self.McGyver.y = self.McGyver.y - 1
-        if event.key == K_RIGHT and map[self.McGyver.x][self.McGyver.y+1]:
-            self.McGyver.y = self.McGyver.y + 1
-
-            position_perso = position_perso.move(0, 40)
-            mcx = mcx+1

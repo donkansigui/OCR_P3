@@ -2,7 +2,7 @@
 """ assigning values ​​for character positioning """
 
 
-class McGyver:
+class McGyver(object):
     """ assigning values ​​for character positioning """
     def __init__(self, x_position, y_position):
         self.x_position = x_position

@@ -16,17 +16,5 @@ class Sprite:
         self.index[6] = pygame.image.load('./pictures/mc_gyver.png').convert()
         self.index[7] = pygame.image.load('./pictures/the_end.png').convert()
         self.index[8] = pygame.image.load('./pictures/game_over.png').convert()
-
-        # self.floor = pygame.image.load('./pictures/floor.png').convert()
-
         # set up fonts
         self.basic_font = pygame.font.SysFont(None, 48)
-
-        # self.macgyver = pygame.image.load('./pictures/macgyver.png').convert_alpha()
-        # self.guardian = pygame.image.load('./pictures/guardian.png').convert_alpha()
-        # self.ether = pygame.image.load('./pictures/ether.png').convert_alpha()
-        # self.needle = pygame.image.load('./pictures/needle.png').convert()
-        # self.plastic_tube = pygame.image.load('./pictures/plastic_tube.png').convert()
-        # self.home = pygame.image.load('./pictures/mc_gyver.png').convert()
-        # self.congratulations = pygame.image.load('./pictures/the_end.png').convert()
-        # self.game_over = pygame.image.load('./pictures/game_over.png').convert()
