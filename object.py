@@ -1,5 +1,5 @@
 # coding: utf-8
-""" function used for positioning objects"""
+""" function used for positioning objects """
 
 
 class Object(object):

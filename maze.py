@@ -21,7 +21,7 @@ class Maze(object):
         self.murdock = Murdock(1, 1)
         self.lst_obj = []
         self.append_obj()
-        print self.lst_obj
+        print (self.lst_obj)
 
     def append_obj(self):
         """ positioning inventory objects """
@@ -52,7 +52,7 @@ class Maze(object):
             i = i+1
         for data in self.empty_lst:
             if data[0] == 3 and data[1] == 3:
-                print "error"
+                print ("error")
         self.empty_lst.remove([1, 13])
 
         return random.sample(self.empty_lst, 3)

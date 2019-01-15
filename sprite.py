@@ -1,5 +1,5 @@
-from pygame import *
-
+# coding: utf-8
+""" creating the class for images """
 
 class Sprite:
     """ assignment of images """
